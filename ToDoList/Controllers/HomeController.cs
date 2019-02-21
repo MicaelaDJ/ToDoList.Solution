@@ -6,7 +6,7 @@ namespace ToDoList.Controllers
   public class HomeController : Controller
   {
 
-    [Route("/")]
+    [HttpGet("/")]
     public ActionResult Index()
     {
       Item starterItem = new Item("Add first item to To Do List");
@@ -19,7 +19,7 @@ namespace ToDoList.Controllers
       return View();
     }
 
-    [Route("/items")]
+    [HttpPost("/items")]
     public ActionResult Create(string description)
     {
       Item myItem = new Item(description);
