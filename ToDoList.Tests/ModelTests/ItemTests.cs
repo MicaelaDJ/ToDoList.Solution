@@ -7,6 +7,7 @@ namespace ToDoList.Tests
   public class ItemTest
   {
 
+    //test confirming Item objects can be successfully created, and are of the Item type:
     [TestMethod]
     public void ItemConstructor_CreatesInstanceOfItem_Item()
     {
