@@ -15,5 +15,14 @@ namespace ToDoList.Tests
       Assert.AreEqual(typeof(Item), newItem.GetType());
     }
 
+    [TestMethod]
+    public void GetDescription_ReturnsDescription_String()
+    {
+      string description = "Walk the dog.";
+      Item newItem = new Item(description);
+      string result = newItem.GetDescription();
+      Assert.AreEqual(description, result);
+    }
+
   }
 }
