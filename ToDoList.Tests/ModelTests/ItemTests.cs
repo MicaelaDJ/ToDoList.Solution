@@ -11,16 +11,22 @@ namespace ToDoList.Tests
     [TestMethod]
     public void ItemConstructor_CreatesInstanceOfItem_Item()
     {
+      //Arrange
       Item newItem = new Item();
+      //Assert
       Assert.AreEqual(typeof(Item), newItem.GetType());
     }
 
+    //test ensuring Item objects can hold a basic description, like "wash the car" or "do the dishes".
     [TestMethod]
     public void GetDescription_ReturnsDescription_String()
     {
+      //Arrange
       string description = "Walk the dog.";
       Item newItem = new Item(description);
+      //Act
       string result = newItem.GetDescription();
+      //Assert
       Assert.AreEqual(description, result);
     }
 
