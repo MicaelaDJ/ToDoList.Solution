@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using ToDoList.Models;
 
@@ -45,6 +46,7 @@ namespace ToDoList.Tests
       Assert.AreEqual(updatedDescription, result);
     }
 
+    //test to confirm that the list exists, and that its getter method can retrieve it
     [TestMethod]
     public void GetAll_ReturnsEmptyList_ItemList()
     {
