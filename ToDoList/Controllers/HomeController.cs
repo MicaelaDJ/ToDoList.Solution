@@ -13,5 +13,11 @@ namespace ToDoList.Controllers
       return View(starterItem);
     }
 
+    [Route("/items/new")]
+    public ActionResult CreateForm()
+    {
+      return View();
+    }
+
   }
 }
