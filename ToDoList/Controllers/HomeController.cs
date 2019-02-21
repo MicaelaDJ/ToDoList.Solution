@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using ToDoList.Models;
 
@@ -9,8 +10,8 @@ namespace ToDoList.Controllers
     [HttpGet("/")]
     public ActionResult Index()
     {
-      Item starterItem = new Item("Add first item to To Do List");
-      return View(starterItem);
+      List<Item> allItems = Item.GetAll();
+      return View(allItems);
     }
 
     [Route("/items/new")]
