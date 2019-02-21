@@ -19,5 +19,10 @@ namespace ToDoList.Models
       _description = newDescription;
     }
 
+    public static List<Item> GetAll()
+    {
+      return new List<Item> {};
+    }
+
   }
 }
