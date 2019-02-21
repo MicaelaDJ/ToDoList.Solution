@@ -18,7 +18,7 @@ namespace ToDoList
 
     public IConfigurationRoot Configuration { get; }
 
-    public void ConfigurationServices(IServiceCollecction services)
+    public void ConfigureServices(IServiceCollection services)
     {
       services.AddMvc();
     }
@@ -32,10 +32,10 @@ namespace ToDoList
           template: "{controller=Home}/{action=Index}/{id?}");
       });
 
-      app.Run(async (context) =>
-      {
-        await context.Response.WriteAsync("Something went wrong!");
-      });
+        app.Run(async (context) =>
+        {
+          await context.Response.WriteAsync("Something went wrong!");
+        });
 
     }
   }
