@@ -9,6 +9,11 @@ namespace ToDoList.Tests
   public class ItemTest : IDisposable
   {
 
+    public void Dispose()
+    {
+      Item.ClearAll();
+    }
+
     //test confirming Item objects can be successfully created, and are of the Item type:
     [TestMethod]
     public void ItemConstructor_CreatesInstanceOfItem_Item()
