@@ -19,5 +19,12 @@ namespace ToDoList.Controllers
       return View();
     }
 
+    [Route("/items")]
+    public ActionResult Create(string description)
+    {
+      Item myItem = new Item(description);
+      return View("Index", myItem);
+    }
+
   }
 }
