@@ -6,7 +6,7 @@ using ToDoList.Models;
 namespace ToDoList.Tests
 {
   [TestClass]
-  public class ItemTest
+  public class ItemTest : IDisposable
   {
 
     //test confirming Item objects can be successfully created, and are of the Item type:
