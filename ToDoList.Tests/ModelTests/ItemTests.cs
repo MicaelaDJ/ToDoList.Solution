@@ -12,7 +12,7 @@ namespace ToDoList.Tests
     public void ItemConstructor_CreatesInstanceOfItem_Item()
     {
       //Arrange
-      Item newItem = new Item();
+      Item newItem = new Item("test");
       //Assert
       Assert.AreEqual(typeof(Item), newItem.GetType());
     }

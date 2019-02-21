@@ -2,7 +2,7 @@ namespace ToDoList.Models
 {
   public class Item
   {
-    private string_description;
+    private string _description;
 
     public Item (string description)
     {
