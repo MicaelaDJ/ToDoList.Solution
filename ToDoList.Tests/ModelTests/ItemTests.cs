@@ -1,7 +1,7 @@
-using System;
-using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using ToDoList.Models;
+using System.Collections.Generic;
+using System;
 
 namespace ToDoList.Tests
 {
@@ -60,10 +60,10 @@ namespace ToDoList.Tests
       List<Item> newList = new List<Item> { };
       //Act
       List<Item> result = Item.GetAll();
-      foreach (Item thisItem in result)
-      {
-        Console.WriteLine("Output from empty list GetAll test: " + thisItem.GetDescription());
-      }
+      // foreach (Item thisItem in result)
+      // {
+      //   Console.WriteLine("Output from empty list GetAll test: " + thisItem.GetDescription());
+      // }
       //Assert
       CollectionAssert.AreEqual(newList, result);
     }
@@ -80,10 +80,10 @@ namespace ToDoList.Tests
       List<Item> newList = new List<Item> { newItem1, newItem2 };
       //Act
       List<Item> result = Item.GetAll();
-      foreach (Item thisItem in result)
-      {
-        Console.WriteLine("Output from second GetAll test: " + thisItem.GetDescription());
-      }
+      // foreach (Item thisItem in result)
+      // {
+      //   Console.WriteLine("Output from second GetAll test: " + thisItem.GetDescription());
+      // }
       //Assert
       CollectionAssert.AreEqual(newList, result);
     }
