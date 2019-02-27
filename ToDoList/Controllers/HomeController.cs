@@ -12,5 +12,12 @@ namespace ToDoList.Controllers
       return View(Item.GetAll());
     }
 
+    [Produces("text/html")]
+    [Route("/favorite_photos")]
+    public ActionResult FavoritePhotos()
+    {
+      return View();
+    }
+
   }
 }
