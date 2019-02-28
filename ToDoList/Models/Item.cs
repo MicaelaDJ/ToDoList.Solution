@@ -54,11 +54,12 @@ namespace ToDoList.Models
       return allItems;
     }
 
-    // public static void ClearAll()
-    // {
-    //   _instances.Clear();
-    // }
-    //
+    public static void ClearAll()
+    {
+      MySqlConnection conn = DB.Connection();
+      conn.Open();
+    }
+
     // public static Item Find(int searchId)
     // {
     //   return _instances[searchId-1];
