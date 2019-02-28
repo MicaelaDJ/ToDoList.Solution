@@ -2,6 +2,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using ToDoList.Models;
 using System.Collections.Generic;
 using System;
+using MySql.Data.MySqlClient;
 
 namespace ToDoList.Tests
 {
@@ -12,6 +13,11 @@ namespace ToDoList.Tests
     public void Dispose()
     {
       Item.ClearAll();
+    }
+
+    public ItemTest()
+    {
+      DBConfiguration.ConnectionString = "server=localhost;user id=root;password=root;port=8889;database=to_do_list_test;";
     }
 
     //test confirming Item objects can be successfully created, and are of the Item type:
