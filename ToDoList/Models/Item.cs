@@ -1,16 +1,17 @@
 using System.Collections.Generic;
+using MySql.Data.MySqlClient;
 
 namespace ToDoList.Models
 {
   public class Item
   {
     private string _description;
-    // private int _id;
+    private int _id;
 
-    public Item (string description)
+    public Item (string description, int id = 0)
     {
       _description = description;
-      // _id = _instances.Count;
+      _id = id;
     }
 
     public string GetDescription()
@@ -23,20 +24,20 @@ namespace ToDoList.Models
       _description = newDescription;
     }
 
-    // public int GetId()
-    // {
-    //   return _id;
-    // }
+    public int GetId()
+    {
+      // Temporarily returning dummy id to get beyond compiler errors, until we refactor to work with database.
+      return _id;
+    }
 
     public static List<Item> GetAll()
     {
-      List<Item> allItems = new List<Item> {};
+      List<Item> allItems = new List<Item> { };
       MySqlConnection conn = DB.Connection();
       conn.Open();
       MySqlCommand cmd = conn.CreateCommand() as MySqlCommand;
       cmd.CommandText = @"SELECT * FROM items;";
       MySqlDataReader rdr = cmd.ExecuteReader() as MySqlDataReader;
-
       while(rdr.Read())
       {
         int itemId = rdr.GetInt32(0);
@@ -46,7 +47,6 @@ namespace ToDoList.Models
       }
 
       conn.Close();
-
       if (conn != null)
       {
         conn.Dispose();
@@ -61,12 +61,96 @@ namespace ToDoList.Models
       var cmd = conn.CreateCommand() as MySqlCommand;
       cmd.CommandText = @"DELETE FROM items;";
       cmd.ExecuteNonQuery();
+      conn.Close();
+      if (conn != null)
+      {
+        conn.Dispose();
+      }
     }
 
-    // public static Item Find(int searchId)
-    // {
-    //   return _instances[searchId-1];
-    // }
+    public static Item Find(int id)
+    {
+      MySqlConnection conn = DB.Connection();
+      conn.Open();
+      var cmd = conn.CreateCommand() as MySqlCommand;
+      cmd.CommandText = @"SELECT * FROM `items` WHERE id = @thisId;";
+      MySqlParameter thisId = new MySqlParameter();
+      thisId.ParameterName = "@thisId";
+      thisId.Value = id;
+      cmd.Parameters.Add(thisId);
+      var rdr = cmd.ExecuteReader() as MySqlDataReader;
+      int itemId = 0;
+      string itemDescription = "";
+      while (rdr.Read())
+      {
+        itemId = rdr.GetInt32(0);
+        itemDescription = rdr.GetString(1);
+      }
+      Item foundItem = new Item(itemDescription, itemId);
+      conn.Close();
+      if (conn != null)
+      {
+        conn.Dispose();
+      }
+      return foundItem;
+    }
+
+    public override bool Equals(System.Object otherItem)
+    {
+      if (!(otherItem is Item))
+      {
+        return false;
+      }
+      else
+      {
+        Item newItem = (Item) otherItem;
+        bool idEquality = (this.GetId() == newItem.GetId());
+        bool descriptionEquality = (this.GetDescription() == newItem.GetDescription());
+        return (idEquality && descriptionEquality);
+      }
+    }
+
+    public void Save()
+    {
+      MySqlConnection conn = DB.Connection();
+      conn.Open();
+      var cmd = conn.CreateCommand() as MySqlCommand;
+      cmd.CommandText = @"INSERT INTO items (description) VALUES (@itemDescription);";
+      MySqlParameter description = new MySqlParameter();
+      description.ParameterName = "@ItemDescription";
+      description.Value = this._description;
+      cmd.Parameters.Add(description);
+      cmd.ExecuteNonQuery();
+      _id = (int) cmd.LastInsertedId;
+      conn.Close();
+      if (conn != null)
+      {
+        conn.Dispose();
+      }
+    }
+
+    public void Edit(string newDescription)
+    {
+      MySqlConnection conn = DB.Connection();
+      conn.Open();
+      var cmd = conn.CreateCommand() as MySqlCommand;
+      cmd.CommandText = @"UPDATE items SET description = @newDescription WHERE id = @searchId;";
+      MySqlParameter searchId = new MySqlParameter();
+      searchId.ParameterName = "@searchId";
+      searchId.Value = _id;
+      cmd.Parameters.Add(searchId);
+      MySqlParameter description = new MySqlParameter();
+      description.ParameterName = "@newDescription";
+      description.Value = newDescription;
+      cmd.Parameters.Add(description);
+      cmd.ExecuteNonQuery();
+      _description = newDescription;
+      conn.Close();
+      if (conn != null)
+      {
+        conn.Dispose();
+      }
+    }
 
   }
 }
